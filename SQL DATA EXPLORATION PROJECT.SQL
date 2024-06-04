@@ -21,7 +21,7 @@ from layoff_staging2 group by company order by 2 desc;
 select min(`date`), max(`date`)
 from layoff_staging2;
 
--- In whch industry we have maximum employee layoff--
+-- In which industry we have maximum employee layoff--
 
 select industry, sum(total_laid_off)
 from layoff_staging2 group by industry order by 2 desc;
@@ -36,6 +36,8 @@ from layoff_staging2 group by year(`date`) order by 1 desc;
 select stage, sum(total_laid_off)
 from layoff_staging2 group by stage order by 2 desc;
 
+-- The total laid off count changes over time--
+
 with ROLLING_TOTAL AS(
 select substring(`date`,1,7) as `month`, sum(total_laid_off) AS TOTAL_OFF
 from  layoff_staging2 where substring(`date`,1,7) is not null  group by `month` order by 1 asc)
@@ -43,13 +45,19 @@ from  layoff_staging2 where substring(`date`,1,7) is not null  group by `month` 
 SELECT `month`,TOTAL_OFF,SUM(TOTAL_OFF) OVER(ORDER BY `month`) as rolling_total
 from ROLLING_TOTAL;
 
+--Getting the layoff status based on company every year--
+
 select company, year(`date`) ,sum(total_laid_off)
 from layoff_staging2 group by company, year(`date`)
 order by company asc;
 
+-- Getting the company list based on total laid off in every year--
+
 select company, year(`date`) ,sum(total_laid_off)
 from layoff_staging2 group by company, year(`date`)
 order by 3 desc;
+
+--Which companies rank in the top 5 based on their total number of layoffs--
 
 with company_year(company, years, total_laid_off) as
 (
