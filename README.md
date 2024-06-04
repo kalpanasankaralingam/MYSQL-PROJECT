@@ -22,5 +22,5 @@ The primary data set used for this analysis is the "layoff.csv" file, containg d
 In the initial data preparation phase, the following tasks are performed:
 - `Remove Duplicate Values`
 - `Standardize Data`
-- `Handling missing / null values
+- `Handling missing / null values`
 - `Remove unnecessary columns`
