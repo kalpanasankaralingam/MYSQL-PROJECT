@@ -11,7 +11,7 @@ The primary data set used for this analysis is the "layoff.csv" file, containg d
 - `Date`
 - `Stage`
 - `country`
-- Funds raised millions`
+- `Funds raised millions`
 
 ## Tools
 - Excel - Raw Data
