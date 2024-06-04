@@ -69,7 +69,7 @@ select distinct industry from layoff_staging2 order by 1;
  alter table layoff_staging2
  modify column `date` date;
  
- --NULL OR BLANK VALUES--
+ -- step3: NULL OR BLANK VALUES--
  select * from layoff_staging2
  where industry is null or industry = '';
  
@@ -96,7 +96,7 @@ select distinct industry from layoff_staging2 order by 1;
  
  select * from layoff_staging2; 
  
- --REMOVE UNNECESSARY COLUMNS--
+ -- Step4: REMOVE UNNECESSARY COLUMNS--
  
  delete from layoff_staging2 where
  total_laid_off is null
