@@ -1,19 +1,13 @@
 select * from layoffs;
+-- Creating a copy of original table to work on it--
 
 create table layoff_staging
 like layoffs;
 
-
 insert into layoff_staging
 select * from layoffs;
-
---WRONG QUERY--
-select *, ROW_NUMBER() OVER(
-partition by company,location,industry, percentage_laid_off, 'date') AS ROW_NUM
- from layoff_staging WHERE ROW_NUM>1;
- 
---CORRECT QUERY--
-
+-- step1: Removing Duplicate Values--
+-- There is no id in this data, so we have delete duplicate rows by creating row number--
 WITH DUPLICATE_CTE AS(
 		select *, ROW_NUMBER() OVER(
 		partition by company,location,industry,total_laid_off, percentage_laid_off, date,
@@ -21,6 +15,7 @@ WITH DUPLICATE_CTE AS(
 		 from layoff_staging)
 
 SELECT * FROM DUPLICATE_CTE WHERE ROW_NUM >1;
+-- we cannot delete/ update cte, so create a new table along with row number--
 
 create TABLE `layoff_staging2` (
   `company` text,
@@ -32,7 +27,7 @@ create TABLE `layoff_staging2` (
   `stage` text,
   `country` text,
   `funds_raised_millions` int DEFAULT NULL,
-  `ROW_NUM` int
+  `ROW_NUM` int        -- This is the column created in duplicate cte--
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 select * from layoff_staging2;
@@ -46,11 +41,13 @@ select *, ROW_NUMBER() OVER(
 select * from layoff_staging2 where ROW_NUM > 1;
 delete from  layoff_staging2 where ROW_NUM > 1;
 
+-- Trimming of extra spaces--
+
 select* from layoff_staging2;
 select company, trim(company) from layoff_staging2;
 
 
---standardization of data--
+-- step2: standardization of data--
 update layoff_staging2
 set company = trim(company);
 
