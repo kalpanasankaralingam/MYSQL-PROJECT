@@ -24,3 +24,9 @@ In the initial data preparation phase, the following tasks are performed:
 - `Standardize Data`
 - `Handling missing / null values`
 - `Remove unnecessary columns`
+## Exploratory Data analysis
+EDA involves exploring the world layoff data to answer key questions, such as:
+- In which year we have maximum number of employees layoff?
+- which country stands first in laid off maximum number of employees?
+- How the total laid off count changes over time?
+- Which companies rank in the top 5 based on their total number of layoffs in every year?
