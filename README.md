@@ -28,5 +28,6 @@ In the initial data preparation phase, the following tasks are performed:
 EDA involves exploring the world layoff data to answer key questions, such as:
 - In which year we have maximum number of employees layoff?
 - which country stands first in laid off maximum number of employees?
+- In whch industry we have maximum employee layoff?
 - How the total laid off count changes over time?
 - Which companies rank in the top 5 based on their total number of layoffs in every year?
