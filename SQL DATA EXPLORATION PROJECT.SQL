@@ -3,6 +3,8 @@
 select max(total_laid_off),MAX(percentage_laid_off)
 from layoff_staging2;
 
+-- Which are the companies did 100% lay off--
+
 SELECT * FROM LAYOFF_STAGING2
 WHERE percentage_laid_off = 1
 order by total_laid_off desc;
@@ -11,11 +13,15 @@ SELECT * FROM LAYOFF_STAGING2
 WHERE percentage_laid_off = 1
 order by funds_raised_millions desc;
 
+--which are the companies did maximum layoff--
+
 select company, sum(total_laid_off)
 from layoff_staging2 group by company order by 2 desc;
 
 select min(`date`), max(`date`)
 from layoff_staging2;
+
+-- In whch industry we have maximum employee layoff--
 
 select industry, sum(total_laid_off)
 from layoff_staging2 group by industry order by 2 desc;
